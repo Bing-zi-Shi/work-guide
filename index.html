@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实用工作指南 - 健筛通医务人员端</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
+            background: #f7f8fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 头部 */
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 50px 20px 30px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-btn {
+            font-size: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            display: inline-block;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* 搜索栏 */
+        .search-section {
+            padding: 20px;
+            background: white;
+            margin-top: -15px;
+            border-radius: 20px 20px 0 0;
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 -2px 20px rgba(0,0,0,0.05);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #f8f9ff;
+            border-radius: 25px;
+            padding: 12px 20px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus-within {
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .search-icon {
+            font-size: 18px;
+            color: #999;
+            margin-right: 12px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        /* 快速导航 */
+        .quick-nav {
+            padding: 0 20px 20px;
+            background: white;
+        }
+
+        .nav-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .nav-item {
+            text-align: center;
+            padding: 15px 10px;
+            background: #f8f9ff;
+            border-radius: 16px;
+            border: 1px solid #e8ecf7;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(79, 172, 254, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        .nav-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.15);
+            border-color: #4facfe;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .nav-text {
+            font-size: 12px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* 主要内容区域 */
+        .main-content {
+            padding: 0 20px 100px;
+            background: #f7f8fa;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 0 5px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            width: 6px;
+            height: 24px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 3px;
+        }
+
+        .more-btn {
+            font-size: 14px;
+            color: #4facfe;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .more-btn:hover {
+            background: rgba(79, 172, 254, 0.1);
+        }
+
+        /* 流程图 */
+        .process-flow {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            position: relative;
+        }
+
+        .flow-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 45px;
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(180deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 2px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .step-content {
+            flex: 1;
+            padding-top: 2px;
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .step-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .step-time {
+            display: inline-block;
+            background: #f0f7ff;
+            color: #4facfe;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .card-content {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 话术模板 */
+        .template-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .template-item {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            border-left: 4px solid #4facfe;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .template-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .template-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .template-content {
+            font-size: 14px;
+            color: #666;
+            background: #f8f9ff;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e8ecf7;
+            font-style: italic;
+        }
+
+        /* 分层指导 */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .guide-item {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guide-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .guide-item.high::before {
+            background: #ff6b6b;
+        }
+
+        .guide-item.medium::before {
+            background: #ffa726;
+        }
+
+        .guide-item.low::before {
+            background: #42a5f5;
+        }
+
+        .guide-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .guide-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .guide-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .guide-badge.high {
+            background: #ff6b6b;
+        }
+
+        .guide-badge.medium {
+            background: #ffa726;
+        }
+
+        .guide-badge.low {
+            background: #42a5f5;
+        }
+
+        .guide-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 底部浮动按钮 */
+        .fab {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(79, 172, 254, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(79, 172, 254, 0.5);
+        }
+
+        /* 加载动画 */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #999;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #4facfe;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 响应式 */
+        @media (max-width: 414px) {
+            .nav-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+            }
+            
+            .nav-item {
+                padding: 12px 8px;
+            }
+            
+            .nav-icon {
+                font-size: 20px;
+            }
+            
+            .nav-text {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <div class="header-content">
+                <div class="back-btn" onclick="goBack()">← 返回</div>
+                <h1>实用工作指南</h1>
+                <p>专业、高效、精准的筛查指导手册</p>
+            </div>
+        </div>
+
+        <!-- 搜索栏 -->
+        <div class="search-section">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="搜索指南内容..." onkeyup="searchContent(this.value)">
+            </div>
+        </div>
+
+        <!-- 快速导航 -->
+        <div class="quick-nav">
+            <h3 class="nav-title">快速导航</h3>
+            <div class="nav-grid">
+                <div class="nav-item" onclick="scrollToSection('process')">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">工作流程</span>
+                </div>
+                <div class="nav-item" onclick="scrollToSection('templates')">
+                    <span class="nav-icon">💬</span>
+                    <span class="nav-text">话术模板</span>
+                </div>
+                <div class="nav-item" onclick="scrollToSection('guidance')">
+                    <span class="nav-icon">🎯</span>
+                    <span class="nav-text">分层指导</span>
+                </div>
+                <div class="nav-item" onclick="scrollToSection('checklist')">
+                    <span class="nav-icon">✅</span>
+                    <span class="nav-text">检查清单</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主要内容 -->
+        <div class="main-content">
+            <!-- I-SAM五阶段工作流程 -->
+            <div class="section" id="process">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon"></div>
+                        I-SAM五阶段工作流程
+                    </div>
+                    <div class="more-btn" onclick="showMoreProcess()">详细说明</div>
+                </div>
+                <div class="process-flow">
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">认知启发阶段</div>
+                                <div class="step-desc">建立筛查认知，完成基线评估和个性化分层</div>
+                                <span class="step-time">15-20分钟</span>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">个性化指导</div>
+                                <div class="step-desc">精准识别需求，制定个性化方案和学习路径</div>
+                                <span class="step-time">15-20分钟</span>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">技能强化阶段</div>
+                                <div class="step-desc">夯实基础知识，提升操作技能，消除筛查障碍</div>
+                                <span class="step-time">10-15分钟</span>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-title">行为促进阶段</div>
+                                <div class="step-desc">促进筛查决策，支持预约行为和实际行动</div>
+                                <span class="step-time">10-15分钟</span>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-title">跟踪确认阶段</div>
+                                <div class="step-desc">确保筛查行为完成，提供结果解读和后续指导</div>
+                                <span class="step-time">5-10分钟</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 沟通话术模板 -->
+            <div class="section" id="templates">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon"></div>
+                        沟通话术模板
+                    </div>
+                    <div class="more-btn" onclick="showMoreTemplates()">更多话术</div>
+                </div>
+                <div class="template-list">
+                    <div class="template-item" onclick="expandTemplate(this)">
+                        <div class="template-title">
+                            <span>📢</span>
+                            筛查动员开场白
+                        </div>
+                        <div class="template-content">
+                            "您好！我是社区卫生服务中心的医务人员。结直肠癌是可以通过早期筛查发现和预防的，我们现在有一个很方便的筛查项目，只需要几分钟就能了解您的健康状况..."
+                        </div>
+                    </div>
+                    <div class="template-item" onclick="expandTemplate(this)">
+                        <div class="template-title">
+                            <span>❓</span>
+                            费用疑虑回应
+                        </div>
+                        <div class="template-content">
+                            "我理解您对费用的担心。目前基础筛查是免费的，如果需要进一步检查，费用也在大多数家庭可承受范围内。而且早发现早治疗，长远来看可以避免更大的医疗支出..."
+                        </div>
+                    </div>
+                    <div class="template-item" onclick="expandTemplate(this)">
+                        <div class="template-title">
+                            <span>🛡️</span>
+                            安全性解释
+                        </div>
+                        <div class="template-content">
+                            "这个筛查方法是非常安全的，已经在全世界广泛使用多年。整个过程无创无痛，就像普通的体检一样。我们的医疗设备都是经过严格消毒的，请您放心..."
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 分层干预指导 -->
+            <div class="section" id="guidance">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon"></div>
+                        分层干预指导
+                    </div>
+                    <div class="more-btn" onclick="showMoreGuidance()">查看详情</div>
+                </div>
+                <div class="guide-grid">
+                    <div class="guide-item high">
+                        <div class="guide-header">
+                            <div class="guide-title">高倾向组 (≥0.7)</div>
+                            <span class="guide-badge high">高配合度</span>
+                        </div>
+                        <div class="guide-desc">
+                            快速建立认知，重点介绍便民功能。提供快速通道，简化操作流程，重点在于便民服务指导和快速决策支持。
+                        </div>
+                    </div>
+                    <div class="guide-item medium">
+                        <div class="guide-header">
+                            <div class="guide-title">中倾向组 (0.3-0.7)</div>
+                            <span class="guide-badge medium">中等配合度</span>
+                        </div>
+                        <div class="guide-desc">
+                            系统性教育，全面介绍筛查价值。进行全面能力提升，详细的利弊权衡分析，提供全程指导和定期随访。
+                        </div>
+                    </div>
+                    <div class="guide-item low">
+                        <div class="guide-header">
+                            <div class="guide-title">低倾向组 (<0.3)</div>
+                            <span class="guide-badge low">需重点关注</span>
+                        </div>
+                        <div class="guide-desc">
+                            深度认知重构，重点消除错误观念。提供深度情感支持，恐惧消除，密集跟踪和持续激励措施。
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作检查清单 -->
+            <div class="section" id="checklist">
+                <div class="section-header">
+                    <div class="section-title">
+                        <div class="section-icon"></div>
+                        筛查操作检查清单
+                    </div>
+                    <div class="more-btn" onclick="showMoreChecklist()">完整清单</div>
+                </div>
+                
+                <div class="card" onclick="showChecklistDetail('preparation')">
+                    <div class="card-header">
+                        <div class="card-icon">📋</div>
+                        <div class="card-title">筛查前准备检查</div>
+                    </div>
+                    <div class="card-content">
+                        ✓ 确认居民身份信息和联系方式<br>
+                        ✓ 核实年龄范围（50-74岁）<br>
+                        ✓ 询问既往筛查史和家族病史<br>
+                        ✓ 评估筛查禁忌症和注意事项<br>
+                        ✓ 准备FIT检测包和说明材料
+                    </div>
+                </div>
+
+                <div class="card" onclick="showChecklistDetail('fit_guidance')" style="margin-top: 15px;">
+                    <div class="card-header">
+                        <div class="card-icon">🧪</div>
+                        <div class="card-title">FIT操作指导检查</div>
+                    </div>
+                    <div class="card-content">
+                        ✓ 详细讲解FIT检测原理和意义<br>
+                        ✓ 演示正确的粪便取样方法<br>
+                        ✓ 强调取样前3天饮食注意事项<br>
+                        ✓ 指导样本保存和送检要求<br>
+                        ✓ 告知结果查询时间和方式
+                    </div>
+                </div>
+
+                <div class="card" onclick="showChecklistDetail('colonoscopy_prep')" style="margin-top: 15px;">
+                    <div class="card-header">
+                        <div class="card-icon">🏥</div>
+                        <div class="card-title">结肠镜预约准备</div>
+                    </div>
+                    <div class="card-content">
+                        ✓ 评估结肠镜检查适应症<br>
+                        ✓ 详细说明检查前饮食要求<br>
+                        ✓ 指导肠道准备药物使用<br>
+                        ✓ 告知检查当日注意事项<br>
+                        ✓ 协助完成预约和时间确认
+                    </div>
+                </div>
+
+                <div class="card" onclick="showChecklistDetail('quality_control')" style="margin-top: 15px;">
+                    <div class="card-header">
+                        <div class="card-icon">⚡</div>
+                        <div class="card-title">质量控制检查</div>
+                    </div>
+                    <div class="card-content">
+                        ✓ 检查FIT试剂盒有效期和储存<br>
+                        ✓ 确认取样工具完整性<br>
+                        ✓ 验证居民理解操作要点<br>
+                        ✓ 记录指导过程和居民反馈<br>
+                        ✓ 建立后续跟踪提醒机制
+                    </div>
+                </div>
+
+                <div class="card" onclick="showChecklistDetail('follow_up')" style="margin-top: 15px;">
+                    <div class="card-header">
+                        <div class="card-icon">📞</div>
+                        <div class="card-title">跟踪随访检查</div>
+                    </div>
+                    <div class="card-content">
+                        ✓ 确认居民按时完成FIT检测<br>
+                        ✓ 及时获取和解读检测结果<br>
+                        ✓ 异常结果的进一步指导<br>
+                        ✓ 正常结果的健康教育<br>
+                        ✓ 制定下次筛查时间计划
+                    </div>
+                </div>
+
+                <div class="card" onclick="showChecklistDetail('emergency')" style="margin-top: 15px;">
+                    <div class="card-header">
+                        <div class="card-icon">🚨</div>
+                        <div class="card-title">异常情况处理</div>
+                    </div>
+                    <div class="card-content">
+                        ✓ FIT阳性结果的紧急处理流程<br>
+                        ✓ 居民拒绝进一步检查的应对<br>
+                        ✓ 样本采集失败的重新指导<br>
+                        ✓ 预约冲突的时间调整<br>
+                        ✓ 技术故障的备用方案
+                    </div>
+                </div>
+            </div>
+
+            <!-- 加载更多 -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                加载更多内容...
+            </div>
+        </div>
+
+        <!-- 浮动按钮 -->
+        <div class="fab" onclick="showQuickActions()">
+            ⚡
+        </div>
+    </div>
+
+    <script>
+        // 返回功能
+        function goBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                alert('返回上一页');
+            }
+        }
+
+        // 搜索功能
+        function searchContent(query) {
+            const sections = document.querySelectorAll('.section');
+            const searchQuery = query.toLowerCase();
+            
+            if (searchQuery === '') {
+                sections.forEach(section => {
+                    section.style.display = 'block';
+                });
+                return;
+            }
+
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(searchQuery)) {
+                    section.style.display = 'block';
+                    // 高亮搜索结果
+                    highlightText(section, searchQuery);
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        }
+
+        // 高亮文本
+        function highlightText(element, query) {
+            // 简单的高亮实现
+            console.log(`高亮显示: ${query}`);
+        }
+
+        // 滚动到指定区域
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // 添加临时高亮效果
+                element.style.background = 'rgba(79, 172, 254, 0.1)';
+                setTimeout(() => {
+                    element.style.background = '';
+                }, 2000);
+            }
+        }
+
+        // 展开话术模板
+        function expandTemplate(element) {
+            const content = element.querySelector('.template-content');
+            const isExpanded = element.classList.contains('expanded');
+            
+            if (isExpanded) {
+                element.classList.remove('expanded');
+                content.style.maxHeight = '50px';
+                content.style.overflow = 'hidden';
+            } else {
+                element.classList.add('expanded');
+                content.style.maxHeight = 'none';
+                content.style.overflow = 'visible';
+            }
+        }
+
+        // 显示更多流程
+        function showMoreProcess() {
+            alert('显示详细的五阶段工作流程说明');
+        }
+
+        // 显示更多话术
+        function showMoreTemplates() {
+            alert('显示完整的沟通话术模板库');
+        }
+
+        // 显示更多指导
+        function showMoreGuidance() {
+            alert('显示详细的分层干预策略和案例');
+        }
+
+        // 显示更多检查清单
+        function showMoreChecklist() {
+            alert('显示完整的操作检查清单');
+        }
+
+        // 显示检查清单详情
+        function showChecklistDetail(type) {
+            const details = {
+                'preparation': '筛查前准备详细清单：\n\n身份确认：\n• 核对姓名、身份证号、联系电话\n• 确认居住地址和工作单位\n• 验证年龄是否在50-74岁范围内\n\n病史询问：\n• 既往结直肠癌筛查史\n• 家族结直肠癌病史\n• 既往肠镜检查经历\n• 目前用药情况\n\n禁忌症评估：\n• 急性胃肠道疾病\n• 严重心血管疾病\n• 精神状态评估\n• 配合度评估',
+                
+                'fit_guidance': 'FIT操作指导详细流程：\n\n检测原理讲解：\n• 粪便隐血检测的科学依据\n• 检测的准确性和局限性\n• 与传统便潜血的区别\n\n取样指导：\n• 取样前3天避免红肉、维C\n• 选择正常成型粪便\n• 多点取样，避免血液污染\n• 取样工具正确使用方法\n\n样本处理：\n• 室温保存不超过24小时\n• 避免阳光直射和高温\n• 及时送检或冷藏保存\n• 样本标识清晰完整',
+                
+                'colonoscopy_prep': '结肠镜准备详细指导：\n\n适应症确认：\n• FIT阳性结果\n• 高危人群筛查\n• 症状性检查指征\n• 既往检查间隔评估\n\n饮食准备：\n• 检查前3天低渣饮食\n• 检查前1天流质饮食\n• 检查当日禁食水\n• 特殊药物调整\n\n肠道准备：\n• 清肠药物选择和用量\n• 服药时间和方法\n• 清肠效果评估标准\n• 不良反应处理',
+                
+                'quality_control': '质量控制详细要求：\n\n试剂管理：\n• 检查有效期（距到期≥3个月）\n• 储存温度2-8℃\n• 避免冷冻和高温\n• 使用前恢复室温\n\n操作标准：\n• 严格按照说明书操作\n• 避免交叉污染\n• 确保取样充分\n• 记录操作时间\n\n记录要求：\n• 详细记录指导内容\n• 居民理解程度评估\n• 潜在问题识别\n• 改进建议记录',
+                
+                'follow_up': '跟踪随访详细流程：\n\n时间节点：\n• 取样后3-5天电话询问\n• 结果出具后24小时内联系\n• 异常结果当日电话通知\n• 正常结果书面通知\n\n结果解读：\n• FIT阴性：继续定期筛查\n• FIT阳性：建议结肠镜检查\n• 不明确结果：重新检测\n• 检测失败：重新取样\n\n健康指导：\n• 正常结果的健康维护\n• 异常结果的进一步处理\n• 生活方式指导\n• 下次筛查时间安排',
+                
+                'emergency': '异常情况处理详细预案：\n\nFIT阳性处理：\n• 立即电话通知居民\n• 详细解释结果意义\n• 安排结肠镜检查预约\n• 心理安慰和支持\n• 建立绿色通道\n\n拒绝检查应对：\n• 耐心询问拒绝原因\n• 针对性消除疑虑\n• 提供更多科普信息\n• 争取家属支持\n• 记录拒绝原因\n\n技术故障处理：\n• 试剂盒质量问题\n• 取样操作失误\n• 运输储存问题\n• 设备故障应对\n• 备用方案启动'
+            };
+            
+            alert(details[type] || '详细信息加载中...');
+        }
+
+        // 快速操作菜单
+        function showQuickActions() {
+            const actions = [
+                '📋 记录工作日志',
+                '💬 联系在线客服', 
+                '📞 拨打支持电话',
+                '📤 分享给同事',
+                '⭐ 收藏此页面'
+            ];
+            
+            const action = prompt('选择快速操作：\n' + actions.join('\n'));
+            if (action) {
+                alert(`执行操作: ${action}`);
+            }
+        }
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加页面加载动画
+            const cards = document.querySelectorAll('.card, .template-item, .guide-item');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            // 监听滚动事件，实现懒加载效果
+            window.addEventListener('scroll', function() {
+                const loading = document.getElementById('loading');
+                const scrollPosition = window.innerHeight + window.scrollY;
+                const documentHeight = document.documentElement.offsetHeight;
+                
+                if (scrollPosition >= documentHeight - 100) {
+                    // 模拟加载更多内容
+                    if (!loading.classList.contains('shown')) {
+                        loading.style.display = 'block';
+                        loading.classList.add('shown');
+                        
+                        setTimeout(() => {
+                            loading.style.display = 'none';
+                            // 这里可以加载更多内容
+                        }, 2000);
+                    }
+                }
+            });
+
+            // 为所有可点击元素添加触摸反馈
+            const clickableElements = document.querySelectorAll('.card, .template-item, .nav-item, .fab');
+            clickableElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        });
+
+        // 模拟网络请求
+        function loadMoreContent() {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve('新内容加载完成');
+                }, 1500);
+            });
+        }
+
+        // 收藏功能
+        function toggleBookmark(element) {
+            const isBookmarked = element.classList.contains('bookmarked');
+            
+            if (isBookmarked) {
+                element.classList.remove('bookmarked');
+                element.style.background = '';
+                alert('已取消收藏');
+            } else {
+                element.classList.add('bookmarked');
+                element.style.background = 'linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%)';
+                alert('已添加到收藏');
+            }
+        }
+
+        // 分享功能
+        function shareContent(title, content) {
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: content,
+                    url: window.location.href
+                });
+            } else {
+                // 备用方案：复制到剪贴板
+                navigator.clipboard.writeText(`${title}\n${content}\n${window.location.href}`).then(() => {
+                    alert('内容已复制到剪贴板');
+                });
+            }
+        }
+
+        // 打印功能
+        function printPage() {
+            window.print();
+        }
+
+        // 语音朗读功能（如果浏览器支持）
+        function readAloud(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'zh-CN';
+                utterance.rate = 0.8;
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('您的浏览器不支持语音朗读功能');
+            }
+        }
+
+        // 反馈功能
+        function submitFeedback() {
+            const feedback = prompt('请输入您的意见和建议：');
+            if (feedback && feedback.trim()) {
+                alert('感谢您的反馈，我们会认真考虑您的建议！');
+                // 这里可以发送反馈到服务器
+            }
+        }
+    </script>
+</body>
+</html>
